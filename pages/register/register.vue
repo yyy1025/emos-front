@@ -18,6 +18,34 @@
 			}
 		},
 		methods: {
+			//获取临时授权和微信账号的基本信息
+			//success回调函数里面就包含临时授权字符串
+			doRegister:function(){
+				uni.login({
+					provider: 'weixin',
+					success: res => {
+						//在这个回调函数得到授权字符串
+						let code=res.code;
+						// console.log(res.code);
+						//获取微信的基本信息
+						uni.getUserInfo({
+							provider:"weixin",
+							success:res=>{
+								//获取昵称、头像
+								let nickName=res.userInfo.nickName;
+								let avatarUrl=res.userInfo.avatarUrl;
+								console.log(nickName);
+								console.log(avatarUrl);
+							}
+						});
+							
+		
+						
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			}
 			
 		}
 	}
