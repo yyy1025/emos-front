@@ -1,0 +1,43 @@
+.login-logo {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 10%;
+}
+.logo-title {
+  margin-top: 5%;
+  text-align: center;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: aqua;
+}
+.release-title {
+  margin-top: 5%;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: aqua;
+}
+.login-button {
+  margin-top: 10%;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #3474FF;
+}
+.login-button:active {
+  background-color: #f00;
+  width: 40%;
+}
+.register-container {
+  margin-top: 10%;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.register-container .register-link {
+  color: #3474FF;
+}
+

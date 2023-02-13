@@ -1,0 +1,58 @@
+@import url("../../style.less");
+.login-logo{
+	//居中显示图片
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	//
+	display: block;//设置这个才会生效，所以img是行内元素吗
+	margin-top: 10%;
+}
+.logo-title{
+	//居中显示文字
+	margin-top: 5%;
+	text-align: center;
+	//样式
+	font-size: 48rpx;
+	font-weight: bold;
+	color: aqua;
+	
+}
+.release-title{
+	//居中显示版本
+	margin-top: 5%;
+	text-align: center;
+	//样式
+	font-size: 30rpx;
+	font-weight: bold;
+	color: aqua;
+	
+}
+.login-button{
+	//居中显示
+	margin-top: 10%;
+	width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+	//样式
+	background-color: @background-color;
+	//点击变色样式
+	&:active{
+		background-color: #f00;
+		width: 40%;//修改width是不是不太好啊
+		
+	}
+}
+.register-container{
+	// 文字整体居中
+	margin-top: 10%;
+	width: 60%;//这个width难道不是整体的宽度吗？为什么不居中呢
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	.register-link{
+		//超链接变色
+		color: @background-color;
+	}
+	
+}
