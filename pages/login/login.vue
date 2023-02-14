@@ -30,6 +30,34 @@
 				uni.navigateTo({
 					url: '/pages/register/register',
 				});
+			},
+			doLogin:function(){
+				let that=this;
+				uni.login({
+					provider: 'weixin',
+					success: res => {
+						let code=res.code;
+						let data={code:code};
+						let url=that.url.login;
+						that.ajax(url,"post",data,function(res){
+							//登录成功，本地存储权限列表
+							let permissions=res.data.permissions;
+							uni.setStorageSync("permissions",permissions);
+							console.log(permissions);
+							//TODO 跳转到登录页
+						})
+						
+					},
+					fail: (e) => {
+						console.log(e);
+						//面包屑显示异常
+						uni.showToast({
+							icon:"none",
+							title: '登录异常'
+						});
+					},
+					complete: () => {}
+				});	
 			}
 			
 		}

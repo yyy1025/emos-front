@@ -8,7 +8,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(wx, createApp) {
+/* WEBPACK VAR INJECTION */(function(wx, createApp, uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
@@ -19,11 +19,54 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 // @ts-ignore
 wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
+var baseUrl = "http://127.0.0.1:8080/ans-wx-api/user";
 _vue.default.config.productionTip = false;
 _App.default.mpType = 'app';
 var app = new _vue.default(_objectSpread({}, _App.default));
 createApp(app).$mount();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["createApp"]))
+// let url={
+// 	register:baseUrl+"/user/register"
+// };
+_vue.default.prototype.url = {
+  register: baseUrl + "/register",
+  login: baseUrl + "/login"
+};
+_vue.default.prototype.ajax = function (url, method, data, func) {
+  uni.request({
+    "url": url,
+    "method": 'POST',
+    // "header":uni.getStorageSync('token'),
+    "data": data,
+    success: function success(res) {
+      if (res.statusCode == 401) {
+        //没有注册或者登录
+        uni.redirectTo({
+          url: '/pages/login/login',
+          success: function success(res) {},
+          fail: function fail() {},
+          complete: function complete() {}
+        });
+      } else if (res.statusCode == 200 && res.data.code == 200) {
+        //HTTP状态码为200，业务状态码也是200，保存token
+        var _data = res.data;
+        if (_data.hasOwnProperty("token")) {
+          uni.setStorageSync("token", _data.token);
+        }
+        func(res);
+      } else {
+        uni.showToast({
+          icon: "none",
+          title: res.data
+          // duration: 2000
+        });
+      }
+    },
+
+    fail: function fail() {},
+    complete: function complete() {}
+  });
+};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["createApp"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

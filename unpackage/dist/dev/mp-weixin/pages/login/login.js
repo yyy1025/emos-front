@@ -170,6 +170,36 @@ var _default = {
       uni.navigateTo({
         url: '/pages/register/register'
       });
+    },
+    doLogin: function doLogin() {
+      var that = this;
+      uni.login({
+        provider: 'weixin',
+        success: function success(res) {
+          var code = res.code;
+          var data = {
+            code: code
+          };
+          var url = that.url.login;
+          that.ajax(url, "post", data, function (res) {
+            //登录成功，本地存储权限列表
+            var permissions = res.data.permissions;
+            uni.setStorageSync("permissions", permissions);
+            console.log(permissions);
+            //TODO 跳转到登录页
+          });
+        },
+
+        fail: function fail(e) {
+          console.log(e);
+          //面包屑显示异常
+          uni.showToast({
+            icon: "none",
+            title: '登录异常'
+          });
+        },
+        complete: function complete() {}
+      });
     }
   }
 };
